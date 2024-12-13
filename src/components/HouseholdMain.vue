@@ -7,12 +7,12 @@
   const tableMessage = '一覧を表示します';
   const pageSelect = ref(true);
 
-  const switchToTable = () => {
+  const SwitchToForm = () => {
     pageSelect.value = true;
   };
 
-  const SwitchToForm = () => {
-    pageSelect.value = true;
+  const switchToTable = () => {
+    pageSelect.value = false;
   };
 </script>
 
@@ -22,7 +22,7 @@
       <div class="m-4">
         <button
           class="bg-blue-500 hover:bg-blue-400 active:bg-blue-600 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 active:border-none active:translate-y-1 rounded h-12"
-          @click="switchToTable"
+          @click="SwitchToForm"
         >
           Formを表示
         </button>
@@ -30,7 +30,7 @@
       <div class="m-4">
         <button
           class="bg-green-500 hover:bg-green-400 active:bg-green-600 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 active:border-none active:translate-y-1 rounded h-12"
-          @click="SwitchToForm"
+          @click="switchToTable"
         >
           Tableを表示
         </button>
