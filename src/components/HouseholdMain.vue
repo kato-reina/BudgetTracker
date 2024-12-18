@@ -16,8 +16,8 @@
 </script>
 
 <template>
-  <div class="w-[1000px] h-[600px]">
-    <div class="flex">
+  <div class="w-[1200px] h-[600px] flex">
+    <div class="bg-gray-300">
       <div class="m-4">
         <button :class="fromButtonStyle" @click="setPageSelect(true)">Formを表示</button>
       </div>

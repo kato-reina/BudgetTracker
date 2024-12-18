@@ -19,6 +19,7 @@
     row10: number;
   };
 
+  // table 4*10
   const rows = 4;
   const tableData = ref<TableRow[]>(
     Array.from({ length: rows }).map((_, rowIndex) => {
