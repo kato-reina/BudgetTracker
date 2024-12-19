@@ -7,13 +7,13 @@
   const tableMessage = '一覧を表示します';
   const pageSelect = ref(true);
 
-  const SwitchToForm = () => {
-    pageSelect.value = true;
-  };
-
-  const switchToTable = () => {
-    pageSelect.value = false;
-  };
+  // 今回はtrueでForm表示
+  const setPageSelect = (flag: boolean) => (pageSelect.value = flag);
+  // for css
+  const commonButtonStyle =
+    'text-white font-bold py-2 px-4 border-b-4 active:border-none active:translate-y-1 rounded h-12';
+  const fromButtonStyle = `bg-blue-500 hover:bg-blue-400 active:bg-blue-600 border-blue-700 hover:border-blue-500 ${commonButtonStyle}`;
+  const tableButtonStyle = `bg-green-500 hover:bg-green-400 active:bg-green-600 border-green-700 hover:border-green-500 ${commonButtonStyle}`;
 
   type TableRow = {
     key: number;
@@ -22,63 +22,34 @@
     fixed: number | null;
   };
 
-  const tableData = ref<TableRow[]>([
-    { key: 1, day: '土', food: null, fixed: null },
-    { key: 2, day: '日', food: null, fixed: null },
-    { key: 3, day: '月', food: null, fixed: null },
-    { key: 4, day: '火', food: null, fixed: null },
-    { key: 5, day: '水', food: null, fixed: null },
-    { key: 6, day: '木', food: null, fixed: null },
-    { key: 7, day: '金', food: null, fixed: null },
-    { key: 8, day: '土', food: null, fixed: null },
-    { key: 9, day: '日', food: null, fixed: null },
-    { key: 10, day: '月', food: null, fixed: null },
-    { key: 11, day: '火', food: null, fixed: null },
-    { key: 12, day: '水', food: null, fixed: null },
-    { key: 13, day: '木', food: null, fixed: null },
-    { key: 14, day: '金', food: null, fixed: null },
-    { key: 15, day: '土', food: null, fixed: null },
-    { key: 16, day: '日', food: null, fixed: null },
-    { key: 17, day: '月', food: null, fixed: null },
-    { key: 18, day: '火', food: null, fixed: null },
-    { key: 19, day: '水', food: null, fixed: null },
-    { key: 20, day: '木', food: null, fixed: null },
-    { key: 21, day: '金', food: null, fixed: null },
-    { key: 22, day: '土', food: null, fixed: null },
-    { key: 23, day: '日', food: null, fixed: null },
-    { key: 24, day: '月', food: null, fixed: null },
-    { key: 25, day: '火', food: null, fixed: null },
-    { key: 26, day: '水', food: null, fixed: null },
-    { key: 27, day: '木', food: null, fixed: null },
-    { key: 28, day: '金', food: null, fixed: null },
-    { key: 29, day: '土', food: null, fixed: null },
-    { key: 30, day: '日', food: null, fixed: null },
-  ]);
+  // table
+  const days = ['土', '日', '月', '火', '水', '木', '金'];
+  const tableData = ref<TableRow[]>(
+    Array.from({ length: 30 }).map((_, index) => ({
+      key: index + 1,
+      day: days[index % 7],
+      food: null,
+      fixed: null,
+    }))
+  );
+
+  const selectedRow = ref<TableRow | null>(null);
 </script>
 
 <template>
-  <div class="w-[800px] h-[600px]">
-    <div class="flex">
+  <div class="w-[1500px] flex">
+    <div class="bg-gray-300">
       <div class="m-4">
-        <button
-          class="bg-blue-500 hover:bg-blue-400 active:bg-blue-600 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 active:border-none active:translate-y-1 rounded h-12"
-          @click="SwitchToForm"
-        >
-          Formを表示
-        </button>
+        <button :class="fromButtonStyle" @click="setPageSelect(true)">Formを表示</button>
       </div>
       <div class="m-4">
-        <button
-          class="bg-green-500 hover:bg-green-400 active:bg-green-600 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 active:border-none active:translate-y-1 rounded h-12"
-          @click="switchToTable"
-        >
-          Tableを表示
-        </button>
+        <button :class="tableButtonStyle" @click="setPageSelect(false)">Tableを表示</button>
       </div>
     </div>
     <div class="m-4">
-      <Form v-if="pageSelect" :formMessage="formMessage" :tableData="tableData" />
+      <Form v-if="pageSelect" :formMessage="formMessage" :tableData="tableData" :selectedRow="selectedRow" />
       <Table v-else :tableMessage="tableMessage" :tableData="tableData" />
+      <!-- <Table v-else :tableMessage="tableMessage" :tableData="tableData" :selectedRow="selectedRow" /> -->
     </div>
   </div>
 </template>

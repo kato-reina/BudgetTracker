@@ -11,6 +11,7 @@
   const props = defineProps<{
     formMessage: string;
     tableData: TableRow[];
+    selectedRow: TableRow | null;
   }>();
 
   const selectedYear = ref('');
@@ -19,29 +20,6 @@
   const selectedCategory = ref('');
   const inputText = ref('');
 
-  const setSelectedYear = (event: Event) => {
-    const target = event.target as HTMLSelectElement;
-    selectedYear.value = target.value;
-  };
-
-  const setSelectedMonth = (event: Event) => {
-    const target = event.target as HTMLSelectElement;
-    selectedMonth.value = target.value;
-  };
-
-  const setSelectedDay = (event: Event) => {
-    const target = event.target as HTMLSelectElement;
-    selectedDay.value = target.value;
-  };
-
-  const setSelectedCategory = (event: Event) => {
-    const target = event.target as HTMLSelectElement;
-    selectedCategory.value = target.value;
-  };
-  const setFormText = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    inputText.value = target.value;
-  };
   const optionsOfYear = [2024];
   const optionsOfMonth = [4];
   const optionsOfDay = [
@@ -64,6 +42,7 @@
     } else {
       updateTableData(updateDay, selectedCategory.value, updateValue);
       inputErrorMessage.value = '';
+      inputText.value = '';
     }
   };
 
@@ -81,27 +60,27 @@
 </script>
 
 <template>
-  <div class="max-w-md bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <div class="w-[800px] max-w-md bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <span class="text-gray-700 text-lg font-semibold mb-4 block">{{ props.formMessage }}</span>
     <div class="flex">
       <div class="flex m-4 space-x-1">
-        <select @input="setSelectedYear" class="p-2 border rounded bg-white shadow">
+        <select v-model="selectedYear" class="p-2 border rounded bg-white shadow">
           <option disabled value="" selected>年</option>
           <option v-for="option in optionsOfYear" :key="option" :value="option">{{ option }}</option>
         </select>
 
-        <select @input="setSelectedMonth" class="p-2 border rounded bg-white shadow">
+        <select v-model="selectedMonth" class="p-2 border rounded bg-white shadow">
           <option disabled value="" selected>月</option>
           <option v-for="option in optionsOfMonth" :key="option" :value="option">{{ option }}</option>
         </select>
 
-        <select @input="setSelectedDay" class="p-2 border rounded bg-white shadow">
+        <select v-model="selectedDay" class="p-2 border rounded bg-white shadow">
           <option disabled value="" selected>日</option>
           <option v-for="option in optionsOfDay" :key="option" :value="option">{{ option }}</option>
         </select>
       </div>
       <div class="m-4 space-x-4">
-        <select @input="setSelectedCategory" class="p-2 border rounded bg-white shadow">
+        <select v-model="selectedCategory" class="p-2 border rounded bg-white shadow">
           <option disabled value="" selected>カテゴリ</option>
           <option v-for="option in optionsOfCategory" :key="option" :value="option">{{ option }}</option>
         </select>
@@ -110,7 +89,7 @@
     <div class="flex items-center mt-4">
       <form class="flex-grow">
         <input
-          @input="setFormText"
+          v-model="inputText"
           class="shadow appearance-none border-2 border-gray-500 rounded w-full py-2 px-3 text-gray-700 leading-tight"
           type="text"
           placeholder="入力してください"
