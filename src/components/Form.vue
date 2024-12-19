@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { defineProps, ref } from 'vue';
+  import { defineProps, ref, watch } from 'vue';
 
   type TableRow = {
     key: number;
@@ -27,7 +27,7 @@
   ];
   const optionsOfCategory = ['食費', '固定費'];
 
-  const inputErrorMessage = ref('');
+  const formErrorMessage = ref('');
 
   const updateTable = () => {
     const updateYear = parseInt(selectedYear.value, 10);
@@ -36,12 +36,12 @@
     const updateValue = parseInt(inputText.value, 10);
 
     if (isItemsSelected(updateYear, updateMonth, selectedCategory.value, updateDay)) {
-      inputErrorMessage.value = '年、月、日、カテゴリをすべて選択してください';
+      formErrorMessage.value = '年、月、日、カテゴリをすべて選択してください';
     } else if (isNaN(updateValue)) {
-      inputErrorMessage.value = '金額を数字で入力して下さい';
+      formErrorMessage.value = '金額を数字で入力して下さい';
     } else {
       updateTableData(updateDay, selectedCategory.value, updateValue);
-      inputErrorMessage.value = '';
+      formErrorMessage.value = '';
       inputText.value = '';
     }
   };
@@ -57,6 +57,23 @@
       props.tableData[day - 1].fixed = value;
     }
   };
+
+  // selectedRowが変更されたときにプルダウンの値を更新
+  watch(
+    () => props.selectedRow,
+    (newRow) => {
+      if (newRow) {
+        updateSelectedValues(newRow);
+      }
+    },
+    { immediate: true }
+  );
+
+  function updateSelectedValues(row: TableRow) {
+    selectedYear.value = '2024';
+    selectedMonth.value = '4';
+    selectedDay.value = row.key.toString();
+  }
 </script>
 
 <template>
@@ -96,13 +113,13 @@
         />
       </form>
       <button
-        class="ml-4 bg-gray-500 hover:bg-gray-400 active:bg-gray-600 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 active:border-none active:translate-y-1 rounded h-12"
+        class="ml-4 bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 active:border-none active:translate-y-1 rounded h-12"
         @click="updateTable"
       >
         送信
       </button>
     </div>
-    <span class="text-red-700 text-lg font-semibold mb-4 block">{{ inputErrorMessage }}</span>
+    <span class="text-red-700 text-lg font-semibold mb-4 block">{{ formErrorMessage }}</span>
   </div>
 </template>
 
