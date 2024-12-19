@@ -4,6 +4,7 @@
     tableData: TableRow[];
     selectedRow: TableRow | null;
     updateSelectedRow: (row: TableRow) => void;
+    tableRowStyle: string[];
   }>();
   type TableRow = {
     key: number;
@@ -13,6 +14,16 @@
   };
   const commonTableHeaderStyle = 'py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm';
   const commonTableDataStyle = 'py-2 px-4 border-b border-gray-20';
+
+  const colorTableRow = (index: number) => {
+    if (index % 7 === 0) {
+      return props.tableRowStyle[0];
+    } else if (index % 7 === 1) {
+      return props.tableRowStyle[1];
+    } else {
+      return props.tableRowStyle[2];
+    }
+  };
 </script>
 
 <template>
@@ -26,7 +37,12 @@
         <th :class="commonTableHeaderStyle">食費</th>
         <th :class="commonTableHeaderStyle">固定費</th>
       </tr>
-      <tr v-for="row in props.tableData" :key="row.key" class="hover:bg-gray-100" @click="updateSelectedRow(row)">
+      <tr
+        v-for="(row, index) in props.tableData"
+        :key="row.key"
+        :class="colorTableRow(index)"
+        @click="updateSelectedRow(row)"
+      >
         <td :class="commonTableDataStyle">{{ row.key }}</td>
         <td :class="commonTableDataStyle">{{ row.day }}</td>
         <td :class="commonTableDataStyle">{{ row.food }}</td>

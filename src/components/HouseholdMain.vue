@@ -21,6 +21,12 @@
   };
 
   const days = ['土', '日', '月', '火', '水', '木', '金'];
+
+  const otherDaysStyle = 'hover:bg-gray-200';
+  const saturdayStyle = 'bg-blue-200 hover:bg-blue-300';
+  const sundaysStyle = 'bg-red-200 hover:bg-red-300';
+
+  const tableRowStyle = [saturdayStyle, sundaysStyle, otherDaysStyle];
   const tableData = ref<TableRow[]>(
     Array.from({ length: 30 }).map((_, index) => ({
       key: index + 1,
@@ -43,7 +49,7 @@
     setPageSelect(true);
   };
 
-  // for css
+  // for main css
   const commonButtonStyle =
     'w-[200px] text-white font-bold py-2 px-4 border-b-4 active:border-none active:translate-y-1 rounded h-12';
   const formButtonStyle = `bg-blue-500 hover:bg-blue-400 active:bg-blue-600 border-blue-700 hover:border-blue-500 ${commonButtonStyle}`;
@@ -69,6 +75,7 @@
         :tableData="tableData"
         :selectedRow="selectedRow"
         :updateSelectedRow="updateSelectedRow"
+        :tableRowStyle="tableRowStyle"
       />
     </div>
   </div>
