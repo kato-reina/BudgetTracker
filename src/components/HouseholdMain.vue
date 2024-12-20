@@ -5,7 +5,13 @@
 
   const formMessage = '家計簿をつける';
   const tableMessage = '一覧を表示します';
-  const sideMenuMessage = 'My家計簿';
+
+  // for side menu
+  const sideMenuTopMessage = '家計簿を';
+  const sideMenuBottomMessage = 'する';
+  const commonSideMenuStyle = 'mx-4 text-gray-900 font-bold';
+  const SideMenuTopStyle = `${commonSideMenuStyle} mt-4 text-left`;
+  const SideMenuBottomStyle = `${commonSideMenuStyle} mb-4 text-right`;
 
   // for form component
   // 今回はtrueでForm表示
@@ -48,28 +54,22 @@
     }
     setPageSelect(true);
   };
-
   // for main css
   const commonButtonStyle =
-    'w-[200px] text-white font-bold py-2 px-4 border-b-4 active:border-none active:translate-y-1 rounded h-12';
-  const formButtonStyle = `bg-orange-500 hover:bg-orange-400 active:bg-orange-600 border-orange-700 hover:border-orange-500 ${commonButtonStyle}`;
-  const tableButtonStyle = `bg-green-500 hover:bg-green-400 active:bg-green-600 border-green-700 hover:border-green-500 ${commonButtonStyle}`;
+    'w-[40%] text-black font-bold py-2 px-4 border-b-4 active:border-none active:translate-y-1 rounded h-12 mx-auto my-1';
+  const formButtonStyle = `bg-orange-200 hover:bg-orange-100 active:bg-orange-200 border-orange-300 hover:border-orange-200 ${commonButtonStyle}`;
+  const tableButtonStyle = `bg-orange-200 hover:bg-orange-100 active:bg-orange-200 border-orange-300 hover:border-orange-200 ${commonButtonStyle}`;
 </script>
 
 <template>
-  <div class="flex w-full h-[1500px]">
-    <div class="bg-yellow-50 mx-auto items-center">
-      <div class="ml-20 mt-3">
-        <h1 class="text-gray-700 font-bold">{{ sideMenuMessage }}</h1>
-      </div>
-      <div class="m-4">
-        <button :class="formButtonStyle" @click="setPageSelect(true)">記録</button>
-      </div>
-      <div class="m-4">
-        <button :class="tableButtonStyle" @click="setPageSelect(false)">確認</button>
-      </div>
+  <div class="flex w-screen h-[1000px]">
+    <div class="flex flex-col w-[15%] h-[200px]">
+      <h1 :class="SideMenuTopStyle">{{ sideMenuTopMessage }}</h1>
+      <button :class="formButtonStyle" @click="setPageSelect(true)">更新</button>
+      <button :class="tableButtonStyle" @click="setPageSelect(false)">確認</button>
+      <h1 :class="SideMenuBottomStyle">{{ sideMenuBottomMessage }}</h1>
     </div>
-    <div class="m-4">
+    <div>
       <Form v-if="pageSelect" :formMessage="formMessage" :tableData="tableData" :selectedRow="selectedRow" />
       <Table
         v-else
