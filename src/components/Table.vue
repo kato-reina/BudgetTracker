@@ -12,8 +12,8 @@
     food: number | null;
     fixed: number | null;
   };
-  const commonTableHeaderStyle = 'py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm';
-  const commonTableDataStyle = 'py-2 px-4 border-b border-gray-20';
+  const commonTableHeaderStyle = 'py-2 px-4 bg-green-200 text-gray-600 font-bold uppercase text-sm';
+  const commonTableDataStyle = 'py-2 px-4 border-b border-green-100';
 
   const colorTableRow = (index: number) => {
     if (index % 7 === 0) {
@@ -30,7 +30,7 @@
   <div class="w-full">
     <span class="text-gray-700 text-lg font-semibold mb-4 block">{{ props.tableMessage }}</span>
     <div class="text-center"><p class="mx-auto">4月</p></div>
-    <table class="w-[800px] bg-white border border-gray-20">
+    <table class="w-[800px] bg-white border border-green-100">
       <tr>
         <th :class="commonTableHeaderStyle">日付</th>
         <th :class="commonTableHeaderStyle">曜日</th>

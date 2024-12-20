@@ -77,7 +77,7 @@
 </script>
 
 <template>
-  <div class="w-[800px] max-w-md bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <div class="w-[800px] bg-orange-100 shadow-md rounded px-8 pt-6 pb-8 m-12">
     <span class="text-gray-700 text-lg font-semibold mb-4 block">{{ props.formMessage }}</span>
     <div class="flex">
       <div class="flex m-4 space-x-1">

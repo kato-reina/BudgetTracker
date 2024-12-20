@@ -22,9 +22,9 @@
 
   const days = ['土', '日', '月', '火', '水', '木', '金'];
 
-  const otherDaysStyle = 'hover:bg-gray-200';
-  const saturdayStyle = 'bg-blue-200 hover:bg-blue-300';
-  const sundaysStyle = 'bg-red-200 hover:bg-red-300';
+  const otherDaysStyle = 'hover:bg-green-100';
+  const saturdayStyle = 'bg-blue-100 hover:bg-blue-200';
+  const sundaysStyle = 'bg-red-100 hover:bg-red-200';
 
   const tableRowStyle = [saturdayStyle, sundaysStyle, otherDaysStyle];
   const tableData = ref<TableRow[]>(
@@ -52,14 +52,16 @@
   // for main css
   const commonButtonStyle =
     'w-[200px] text-white font-bold py-2 px-4 border-b-4 active:border-none active:translate-y-1 rounded h-12';
-  const formButtonStyle = `bg-blue-500 hover:bg-blue-400 active:bg-blue-600 border-blue-700 hover:border-blue-500 ${commonButtonStyle}`;
+  const formButtonStyle = `bg-orange-500 hover:bg-orange-400 active:bg-orange-600 border-orange-700 hover:border-orange-500 ${commonButtonStyle}`;
   const tableButtonStyle = `bg-green-500 hover:bg-green-400 active:bg-green-600 border-green-700 hover:border-green-500 ${commonButtonStyle}`;
 </script>
 
 <template>
-  <div class="w-[1500px] flex">
-    <div class="bg-gray-300">
-      <span class="text-gray-700 font-bold">{{ sideMenuMessage }}</span>
+  <div class="flex w-full h-[1500px]">
+    <div class="bg-yellow-50 mx-auto items-center">
+      <div class="ml-20 mt-3">
+        <h1 class="text-gray-700 font-bold">{{ sideMenuMessage }}</h1>
+      </div>
       <div class="m-4">
         <button :class="formButtonStyle" @click="setPageSelect(true)">記録</button>
       </div>
