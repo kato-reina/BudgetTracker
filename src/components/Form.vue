@@ -23,7 +23,7 @@
   const optionsOfYear = [2024];
   const optionsOfMonth = [4];
   const optionsOfDay = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
   ];
   const optionsOfCategory = ['食費', '固定費'];
 
@@ -43,6 +43,7 @@
       updateTableData(updateDay, selectedCategory.value, updateValue);
       formErrorMessage.value = '';
       inputText.value = '';
+      formErrorMessage.value = '家計簿を更新しました';
     }
   };
 
@@ -77,7 +78,8 @@
 </script>
 
 <template>
-  <div class="w-[800px] bg-orange-100 shadow-md rounded px-8 pt-6 pb-8 m-12">
+  <!-- <div class="w-[800px] bg-orange-100 shadow-md rounded px-8 pt-6 pb-8 m-12"> -->
+  <div class="w-full bg-orange-100 shadow-md rounded px-8 pt-6 pb-8 m-12">
     <span class="text-gray-700 text-lg font-semibold mb-4 block">{{ props.formMessage }}</span>
     <div class="flex">
       <div class="flex m-4 space-x-1">
@@ -113,7 +115,7 @@
         />
       </form>
       <button
-        class="ml-4 bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 active:border-none active:translate-y-1 rounded h-12"
+        class="w-[180px] ml-4 bg-orange-300 hover:bg-orange-200 active:bg-orange-400 text-black font-bold py-2 px-4 border-b-4 border-orange-500 hover:border-orange-300 active:border-none active:translate-y-1 rounded h-12"
         @click="updateTable"
       >
         送信

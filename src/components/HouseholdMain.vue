@@ -28,7 +28,7 @@
 
   const days = ['土', '日', '月', '火', '水', '木', '金'];
 
-  const otherDaysStyle = 'hover:bg-green-100';
+  const otherDaysStyle = 'hover:bg-orange-100';
   const saturdayStyle = 'bg-blue-100 hover:bg-blue-200';
   const sundaysStyle = 'bg-red-100 hover:bg-red-200';
 
