@@ -6,14 +6,13 @@
     updateSelectedRow: (row: TableRow) => void;
     tableRowStyle: string[];
   }>();
+
   type TableRow = {
     key: number;
     day: string;
     food: number | null;
     fixed: number | null;
   };
-  const commonTableHeaderStyle = 'py-2 px-4 bg-orange-200 text-gray-600 font-bold uppercase text-sm';
-  const commonTableDataStyle = 'text-center py-2 px-4 border-b border-orange-100';
 
   const colorTableRow = (index: number) => {
     if (index % 7 === 0) {
@@ -24,12 +23,15 @@
       return props.tableRowStyle[2];
     }
   };
+
+  // for css
+  const commonTableHeaderStyle = 'py-2 px-4 bg-orange-200 text-gray-600 font-bold uppercase text-sm';
+  const commonTableDataStyle = 'text-center py-2 px-4 border-t border-orange-100';
 </script>
 
 <template>
   <div class="w-full m-4">
     <span class="text-gray-700 text-lg font-semibold mb-4">{{ props.tableMessage }}</span>
-    <div class="m-4"><p class="mx-auto text-left text-lg font-bold">4月</p></div>
     <table class="w-[800px] bg-white border border-orange-100">
       <tr>
         <th :class="commonTableHeaderStyle">日付</th>

@@ -27,23 +27,23 @@
   ];
   const optionsOfCategory = ['食費', '固定費'];
 
-  const formErrorMessage = ref('');
+  const formBottomMessage = ref('');
 
   const updateTable = () => {
-    const updateYear = parseInt(selectedYear.value, 10);
-    const updateMonth = parseInt(selectedMonth.value, 10);
-    const updateDay = parseInt(selectedDay.value, 10);
-    const updateValue = parseInt(inputText.value, 10);
+    const updatedYear = parseInt(selectedYear.value, 10);
+    const updatedMonth = parseInt(selectedMonth.value, 10);
+    const updatedDay = parseInt(selectedDay.value, 10);
+    const updatedValue = parseInt(inputText.value, 10);
 
-    if (isItemsSelected(updateYear, updateMonth, selectedCategory.value, updateDay)) {
-      formErrorMessage.value = '年、月、日、カテゴリをすべて選択してください';
-    } else if (isNaN(updateValue)) {
-      formErrorMessage.value = '金額を数字で入力して下さい';
+    if (isItemsSelected(updatedYear, updatedMonth, selectedCategory.value, updatedDay)) {
+      formBottomMessage.value = '年、月、日、カテゴリをすべて選択してください';
+    } else if (isNaN(updatedValue)) {
+      formBottomMessage.value = '金額を数字で入力して下さい';
     } else {
-      updateTableData(updateDay, selectedCategory.value, updateValue);
-      formErrorMessage.value = '';
+      updateTableData(updatedDay, selectedCategory.value, updatedValue);
+      formBottomMessage.value = '';
       inputText.value = '';
-      formErrorMessage.value = '家計簿を更新しました';
+      formBottomMessage.value = '家計簿を更新しました';
     }
   };
 
@@ -75,31 +75,37 @@
     selectedMonth.value = '4';
     selectedDay.value = row.key.toString();
   }
+
+  //for css
+  const commonSelectStyle = 'p-2 border rounded bg-white shadow';
+  const buttonStyle =
+    'w-[180px] ml-4 bg-orange-300 hover:bg-orange-200 active:bg-orange-400 text-black font-bold py-2 px-4 border-b-4 border-orange-500 hover:border-orange-300 active:border-none active:translate-y-1 rounded h-12';
+  const inputStyle =
+    'shadow appearance-none border-2 border-gray-500 rounded w-full py-2 px-3 text-gray-700 leading-tight';
 </script>
 
 <template>
-  <!-- <div class="w-[800px] bg-orange-100 shadow-md rounded px-8 pt-6 pb-8 m-12"> -->
   <div class="w-full bg-orange-100 shadow-md rounded px-8 pt-6 pb-8 m-12">
     <span class="text-gray-700 text-lg font-semibold mb-4 block">{{ props.formMessage }}</span>
     <div class="flex">
       <div class="flex m-4 space-x-1">
-        <select v-model="selectedYear" class="p-2 border rounded bg-white shadow">
+        <select v-model="selectedYear" :class="commonSelectStyle">
           <option disabled value="" selected>年</option>
           <option v-for="option in optionsOfYear" :key="option" :value="option">{{ option }}</option>
         </select>
 
-        <select v-model="selectedMonth" class="p-2 border rounded bg-white shadow">
+        <select v-model="selectedMonth" :class="commonSelectStyle">
           <option disabled value="" selected>月</option>
           <option v-for="option in optionsOfMonth" :key="option" :value="option">{{ option }}</option>
         </select>
 
-        <select v-model="selectedDay" class="p-2 border rounded bg-white shadow">
+        <select v-model="selectedDay" :class="commonSelectStyle">
           <option disabled value="" selected>日</option>
           <option v-for="option in optionsOfDay" :key="option" :value="option">{{ option }}</option>
         </select>
       </div>
       <div class="m-4 space-x-4">
-        <select v-model="selectedCategory" class="p-2 border rounded bg-white shadow">
+        <select v-model="selectedCategory" :class="commonSelectStyle">
           <option disabled value="" selected>カテゴリ</option>
           <option v-for="option in optionsOfCategory" :key="option" :value="option">{{ option }}</option>
         </select>
@@ -107,21 +113,11 @@
     </div>
     <div class="flex items-center mt-4">
       <form class="flex-grow">
-        <input
-          v-model="inputText"
-          class="shadow appearance-none border-2 border-gray-500 rounded w-full py-2 px-3 text-gray-700 leading-tight"
-          type="text"
-          placeholder="入力してください"
-        />
+        <input v-model="inputText" :class="inputStyle" type="text" placeholder="入力してください" />
       </form>
-      <button
-        class="w-[180px] ml-4 bg-orange-300 hover:bg-orange-200 active:bg-orange-400 text-black font-bold py-2 px-4 border-b-4 border-orange-500 hover:border-orange-300 active:border-none active:translate-y-1 rounded h-12"
-        @click="updateTable"
-      >
-        送信
-      </button>
+      <button :class="buttonStyle" @click="updateTable">更新</button>
     </div>
-    <span class="text-red-700 text-lg font-semibold mb-4 block">{{ formErrorMessage }}</span>
+    <span class="text-red-700 text-lg font-semibold mb-4 block">{{ formBottomMessage }}</span>
   </div>
 </template>
 
